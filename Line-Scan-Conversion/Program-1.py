@@ -42,13 +42,23 @@ def basic_alg(x0, y0, x1, y1):
     b = y0 - (m * x0)       # y-intercept
             
     if m == 1 or m == -1: # perfectly diagonal 
-        for i in range(dx):
-            print() 
+        
+        if x1 > x0:
+            for i in range(dx):
+                x = x0 + i
+                y = (m * x) + b 
+                y = int(y)
+                pixels[x,y] = (255,255,255)
+        else:
+            for i in range(dx):
+                x = x1 + i
+                y = (m * x) + b 
+                y = int(y)
+                pixels[x,y] = (255,255,255) 
+                             
     else:
        
        if dx > dy and x1 > x0: 
-           # (0, 0) to (8, 4)
-           # (0, 1) to (4, 0)
            
            for i in range(dx):
                x = x0 + i
@@ -57,8 +67,6 @@ def basic_alg(x0, y0, x1, y1):
                pixels[x,y] = (255,255,255)   
                 
        elif dx > dy and x0 > x1:
-           # (4, 0) to (0, 1)
-           # (4, 2) to (0, 0)
            
            for i in range(dx):
                x = x1 + i
@@ -67,8 +75,6 @@ def basic_alg(x0, y0, x1, y1):
                pixels[x,y] = (255,255,255)  
             
        elif dy > dx and y1 > y0:
-           # (0, 0) to (3, 8) 
-           # (3, 0) to (0, 8)
            
            for i in range(dy):
                y = y0 + i
@@ -77,8 +83,6 @@ def basic_alg(x0, y0, x1, y1):
                pixels[x,y] = (255,255,255)
         
        elif dy > dx and y0 > y1: 
-           # (0, 8) to (6, 0)
-           # (6, 8) to (0, 0) 
            
            for i in range(dy):
                y = y1 + i
@@ -105,17 +109,13 @@ n = abs(int(input("Please enter how many lines you would like to draw: ")))
 
 # loops from 0 to n (exclusive)
 for i in range(n): 
-    #x0 = xcoordinate()
-    #y0 = ycoordinate() 
-    #x1 = xcoordinate()
-    #y1 = ycoordinate()
-    #print("\nCoordinate Values:")
-    #print("(" + x0 + ", " + y0 + ")")
-    #print("(" + x1 + ", " + y1 + ")\n")
-    x0 = 500
-    y0 = 100
-    x1 = 100
-    y1 = 100
+    x0 = xcoordinate()
+    y0 = ycoordinate() 
+    x1 = xcoordinate()
+    y1 = ycoordinate()
+    print("\nCoordinate Values:")
+    print("(" + str(x0) + ", " + str(y0) + ")")
+    print("(" + str(x1) + ", " + str(y1) + ")\n")
     basic_alg(x0, y0, x1, y1)
 
 img = img.transpose(Image.Transpose.FLIP_TOP_BOTTOM)   
