@@ -14,7 +14,7 @@ def basic_alg(x0, y0, x1, y1):
         pixels[x0,y0] = (255,255,255)
         return 
      
-    elif x0 == x1: # vertical   
+    elif x0 == x1: # vertical  
         
         if y1 > y0:
             for i in range(dy):
@@ -26,7 +26,7 @@ def basic_alg(x0, y0, x1, y1):
                 pixels[x0,y] = (255,255,255)          
         return   
         
-    elif y0 == y1: # horizontal     
+    elif y0 == y1: # horizontal  
         
         if x1 > x0:
             for i in range(dx):
@@ -56,7 +56,7 @@ def basic_alg(x0, y0, x1, y1):
                 y = int(y)
                 pixels[x,y] = (255,255,255) 
                              
-    else:
+    else: # all other cases
        
        if dx > dy and x1 > x0: 
            
@@ -104,7 +104,7 @@ def ycoordinate():
 img = Image.new('RGB', (960, 600)) 
 pixels = img.load() 
 
-# only accepts positive integer values as input
+# all input is read as positive integer values
 n = abs(int(input("Please enter how many lines you would like to draw: ")))
 
 # loops from 0 to n (exclusive)
@@ -113,7 +113,7 @@ for i in range(n):
     y0 = ycoordinate() 
     x1 = xcoordinate()
     y1 = ycoordinate()
-    print("\nCoordinate Values:")
+    print("Coordinate Values:")
     print("(" + str(x0) + ", " + str(y0) + ")")
     print("(" + str(x1) + ", " + str(y1) + ")\n")
     basic_alg(x0, y0, x1, y1)
