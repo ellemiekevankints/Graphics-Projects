@@ -4,19 +4,46 @@ from random import randint
 
 # draws a line using the basic line drawing algorithm
 # the code to create a window and draw a single pixel can be found https://rosettacode.org/wiki/Draw_a_pixel#Python 
-def basic_alg(x0, y0, x1, y1): 
-    
+def basic_alg(x0, y0, x1, y1):      
+     
     dy = abs(y1 - y0)               
-    dx = abs(x1 - x0)               
-    m = (y1 - y0)/(x1 - x0) # slope 
-    b = y0 - (m * x0)       # y-intercept 
+    dx = abs(x1 - x0)                
+   
+    if x0 == x1 and y0 == y1: # singular point  
+        
+        pixels[x0,y0] = (255,255,255)
+        return 
+     
+    elif x0 == x1: # vertical   
+        
+        if y1 > y0:
+            for i in range(dy):
+                y = y0 + i
+                pixels[x0,y] = (255,255,255)
+        else:
+            for i in range(dy):
+                y = y1 + i
+                pixels[x0,y] = (255,255,255)          
+        return   
+        
+    elif y0 == y1: # horizontal     
+        
+        if x1 > x0:
+            for i in range(dx):
+                x = x0 + i
+                pixels[x,y0] = (255,255,255)
+        else:
+            for i in range(dx):
+                x = x1 + i
+                pixels[x,y0] = (255,255,255) 
+        return      
     
-    if x0 == x1: # vertical  
-        print()
-    elif y0 == y1: # horizontal 
-        print()
-    elif dx == dy: # perfectly diagonal 
-        print()
+    m = (y1 - y0)/(x1 - x0) # slope 
+    b = y0 - (m * x0)       # y-intercept
+            
+    if m == 1 or m == -1: # perfectly diagonal 
+        for i in range(dx):
+            print() 
     else:
        
        if dx > dy and x1 > x0: 
@@ -25,7 +52,7 @@ def basic_alg(x0, y0, x1, y1):
            
            for i in range(dx):
                x = x0 + i
-               y = (m * i) + b
+               y = (m * x) + b 
                y = int(y)
                pixels[x,y] = (255,255,255)   
                 
@@ -35,7 +62,7 @@ def basic_alg(x0, y0, x1, y1):
            
            for i in range(dx):
                x = x1 + i
-               y = (m * i) + b
+               y = (m * x) + b 
                y = int(y)
                pixels[x,y] = (255,255,255)  
             
@@ -70,7 +97,7 @@ def ycoordinate():
 # the window is 960 x 600
 # x bounds [0, 959]
 # y bounds [0, 599] 
-img = Image.new('RGB', (100, 100)) 
+img = Image.new('RGB', (960, 600)) 
 pixels = img.load() 
 
 # only accepts positive integer values as input
@@ -85,10 +112,10 @@ for i in range(n):
     #print("\nCoordinate Values:")
     #print("(" + x0 + ", " + y0 + ")")
     #print("(" + x1 + ", " + y1 + ")\n")
-    x0 = 6
-    y0 = 8
-    x1 = 0
-    y1 = 0
+    x0 = 500
+    y0 = 100
+    x1 = 100
+    y1 = 100
     basic_alg(x0, y0, x1, y1)
 
 img = img.transpose(Image.Transpose.FLIP_TOP_BOTTOM)   
