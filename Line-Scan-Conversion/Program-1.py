@@ -17,25 +17,25 @@ def basic_alg(x0, y0, x1, y1):
     elif x0 == x1: # vertical  
         
         if y1 > y0:
-            for i in range(dy):
+            for i in range(dy + 1):
                 y = y0 + i
                 pixels[x0,y] = (255,255,255)
         else:
-            for i in range(dy):
-                y = y1 + i
+            for i in range(dy + 1):
+                y = y0 - i
                 pixels[x0,y] = (255,255,255)          
         return   
         
     elif y0 == y1: # horizontal  
         
         if x1 > x0:
-            for i in range(dx):
+            for i in range(dx + 1):
                 x = x0 + i
                 pixels[x,y0] = (255,255,255)
         else:
-            for i in range(dx):
-                x = x1 + i
-                pixels[x,y0] = (255,255,255) 
+            for i in range(dx + 1):
+                x = x0 - i
+                pixels[x,y0] = (255,255,255)
         return      
     
     m = (y1 - y0)/(x1 - x0) # slope 
@@ -44,40 +44,40 @@ def basic_alg(x0, y0, x1, y1):
     if m == 1 or m == -1: # perfectly diagonal 
         
         if x1 > x0:
-            for i in range(dx):
+            for i in range(dx + 1):
                 x = x0 + i
                 y = (m * x) + b 
                 y = int(y)
                 pixels[x,y] = (255,255,255)
         else:
-            for i in range(dx):
-                x = x1 + i
+            for i in range(dx + 1):
+                x = x0 - i
                 y = (m * x) + b 
                 y = int(y)
-                pixels[x,y] = (255,255,255) 
+                pixels[x,y] = (255,255,255)
         return
                             
     else: # all other cases
        
        if dx > dy and x1 > x0: 
            
-           for i in range(dx):
+           for i in range(dx + 1):
                x = x0 + i
                y = (m * x) + b 
                y = int(y)
-               pixels[x,y] = (255,255,255)   
+               pixels[x,y] = (255,255,255)  
                 
        elif dx > dy and x0 > x1:
            
-           for i in range(dx):
-               x = x1 + i
+           for i in range(dx + 1):
+               x = x0 - i
                y = (m * x) + b 
                y = int(y)
-               pixels[x,y] = (255,255,255)  
+               pixels[x,y] = (255,255,255)   
             
        elif dy > dx and y1 > y0:
            
-           for i in range(dy):
+           for i in range(dy + 1):
                y = y0 + i
                x = (y - b)/m 
                x = int(x)
@@ -85,8 +85,8 @@ def basic_alg(x0, y0, x1, y1):
         
        elif dy > dx and y0 > y1: 
            
-           for i in range(dy):
-               y = y1 + i
+           for i in range(dy + 1):
+               y = y0 - i
                x = (y - b)/m 
                x = int(x)
                pixels[x,y] = (255,255,255)
