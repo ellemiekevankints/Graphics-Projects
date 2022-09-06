@@ -55,7 +55,8 @@ def basic_alg(x0, y0, x1, y1):
                 y = (m * x) + b 
                 y = int(y)
                 pixels[x,y] = (255,255,255) 
-                             
+        return
+                            
     else: # all other cases
        
        if dx > dy and x1 > x0: 
