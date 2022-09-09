@@ -1,6 +1,7 @@
 import PIL
 from PIL import Image
 from random import randint
+from time import time
 
 # draws a line using the basic line drawing algorithm
 # the code to create a window and draw a single pixel can be found https://rosettacode.org/wiki/Draw_a_pixel#Python 
@@ -108,16 +109,21 @@ pixels = img.load()
 # all input is read as positive integer values
 n = abs(int(input("Please enter how many lines you would like to draw: ")))
 
+t = 0
 # loops from 0 to n (exclusive)
 for i in range(n): 
     x0 = xcoordinate()
     y0 = ycoordinate() 
     x1 = xcoordinate()
     y1 = ycoordinate()
-    print("Coordinate Values:")
-    print("(" + str(x0) + ", " + str(y0) + ")")
-    print("(" + str(x1) + ", " + str(y1) + ")\n")
+    # print("Coordinate Values:")
+    # print("(" + str(x0) + ", " + str(y0) + ")")
+    # print("(" + str(x1) + ", " + str(y1) + ")\n")
+    start = time()
     basic_alg(x0, y0, x1, y1)
+    end = time()
+    t = t + (end - start) # calculate execution time
 
+print("Execution time:", t, "seconds")
 img = img.transpose(Image.Transpose.FLIP_TOP_BOTTOM)   
 img.show()
