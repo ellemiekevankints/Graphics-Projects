@@ -172,24 +172,52 @@ def bresenham_alg(x0, y0, x1, y1):
         
         if x1 > x0:
 
-            while x <= x1 and y < 600:
-                pixels[x, y] = (255,255,255)
-                if e < 0:
-                    e += inc1
-                else:
-                    y += 1
-                    e += inc2
-                x += 1              
-        else:
+            if y1 > y0:
+                 
+                while x <= x1 and y <= y1:
+                    pixels[x, y] = (255,255,255)
+                    if e < 0:
+                        e += inc1
+                    else:
+                        y += 1
+                        e += inc2
+                    x += 1  
             
-            while x >= x1 and y >= 0:
-                pixels[x, y] = (255,255,255)
-                if e < 0:
-                    e += inc1
-                else:
-                    y -= 1
-                    e += inc2
-                x -= 1   
+            else:
+                
+                while x <= x1 and y >= y1:
+                    pixels[x, y] = (255,255,255)
+                    if e < 0:
+                        e += inc1
+                    else:
+                        y -= 1
+                        e += inc2
+                    x += 1                               
+       
+        else:
+             
+            if y1 > y0: 
+                
+                while x >= x1 and y <= y1:
+                    pixels[x, y] = (255,255,255)
+                    if e < 0:
+                        e += inc1
+                    else:
+                        y += 1
+                        e += inc2
+                    x -= 1 
+                     
+            else:
+                
+                while x >= x1 and y >= y1:
+                    pixels[x, y] = (255,255,255)
+                    if e < 0:
+                        e += inc1
+                    else:
+                        y -= 1
+                        e += inc2
+                    x -= 1          
+        
         return               
              
 # generates a random x coordinate everytime it executes 
