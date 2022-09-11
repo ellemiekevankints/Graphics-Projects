@@ -172,7 +172,7 @@ def bresenham_alg(x0, y0, x1, y1):
         
         if x1 > x0:
 
-            while x <= x1:
+            while x <= x1 and y < 600:
                 pixels[x, y] = (255,255,255)
                 if e < 0:
                     e += inc1
