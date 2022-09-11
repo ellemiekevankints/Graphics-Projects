@@ -172,27 +172,27 @@ def bresenham_alg(x0, y0, x1, y1):
         
         if x1 > x0:
 
-            while x <= x1:
+            while x <= x1 and y < 600:
+                #print("(" + str(x0) + ", " + str(y0) + ")") 
+                #print("(" + str(x) + ", " + str(y) + ")")
                 pixels[x, y] = (255,255,255)
                 if e < 0:
                     e += inc1
                 else:
                     y += 1
                     e += inc2
-                x += 1       
-            return
-             
+                x += 1              
         else:
             
-            while x >= x1:
+            while x >= x1 and y >= 0:
                 pixels[x, y] = (255,255,255)
                 if e < 0:
                     e += inc1
                 else:
                     y -= 1
                     e += inc2
-                x -= 1 
-            return               
+                x -= 1   
+        return               
              
 # generates a random x coordinate everytime it executes 
 def xcoordinate():
@@ -221,7 +221,6 @@ for i in range(n):
     # print("Coordinate Values:")
     # print("(" + str(x0) + ", " + str(y0) + ")")
     # print("(" + str(x1) + ", " + str(y1) + ")\n")
-    
     start = time()
     bresenham_alg(x0, y0, x1, y1)
     end = time()

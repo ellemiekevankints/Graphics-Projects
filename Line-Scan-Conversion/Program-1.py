@@ -66,7 +66,7 @@ def basic_alg(x0, y0, x1, y1):
                x = x0 + i
                y = (m * x) + b 
                y = int(y)
-               pixels[x,y] = (255,255,255)  
+               pixels[x,y] = (255,255,255) 
                 
        elif dx > dy and x0 > x1:
            
@@ -74,7 +74,7 @@ def basic_alg(x0, y0, x1, y1):
                x = x0 - i
                y = (m * x) + b 
                y = int(y)
-               pixels[x,y] = (255,255,255)   
+               pixels[x,y] = (255,255,255)  
             
        elif dy > dx and y1 > y0:
            
@@ -116,9 +116,9 @@ for i in range(n):
     y0 = ycoordinate() 
     x1 = xcoordinate()
     y1 = ycoordinate()
-    # print("Coordinate Values:")
-    # print("(" + str(x0) + ", " + str(y0) + ")")
-    # print("(" + str(x1) + ", " + str(y1) + ")\n")
+    #print("Coordinate Values:")
+    #print("(" + str(x0) + ", " + str(y0) + ")")
+    #print("(" + str(x1) + ", " + str(y1) + ")\n")
     start = time()
     basic_alg(x0, y0, x1, y1)
     end = time()
