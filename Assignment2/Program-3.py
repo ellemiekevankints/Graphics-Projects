@@ -8,7 +8,6 @@ from math import cos
 from math import radians
 import numpy as np
 
-# draws a line using the basic line drawing algorithm
 # the code to create a window and draw a single pixel can be found https://rosettacode.org/wiki/Draw_a_pixel#Python 
 def bresenham_alg(x0, y0, x1, y1, pixels):      
      
@@ -417,7 +416,7 @@ while (loop):
     prompt_user()
     inp = input("Choose a command: ")
     print()
-    
+     
     if inp == "q":
         
         print("Quitting the program..\nBye!\n")
