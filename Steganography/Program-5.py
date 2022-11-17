@@ -61,7 +61,7 @@ def input_img():
 def encode(src, message, dest, n):
     
     """ Encodes the source image with the secret message. 
-        This code was taken from a tutorial, which can be found here: https://medium.com/swlh/lsb-image-steganography-using-python-2bbbee2c69a2
+        This code was provided in a Medium article written by Devang Jain, which can be found here: https://medium.com/swlh/lsb-image-steganography-using-python-2bbbee2c69a2
     """
      
     img = Image.open(src, 'r')
@@ -98,17 +98,14 @@ def encode(src, message, dest, n):
 def decode(src, n):
     
     """ Decodes the secret message from the image.
-        This code was taken from a tutorial, which can be found here: https://medium.com/swlh/lsb-image-steganography-using-python-2bbbee2c69a2
+        This code was provided in a Medium article written by Devang Jain, which can be found here: https://medium.com/swlh/lsb-image-steganography-using-python-2bbbee2c69a2
     """
     
     img = Image.open(src, 'r')
-    array = np.array(list(img.getdata()))
+    img = img.convert('RGB') # convert image to RBG
+    array = np.array(list(img.getdata())) # 2D aray which holds the pixel data
 
-    if img.mode == 'RGB':
-        m = 3
-    elif img.mode == 'RGBA':
-        m = 4
-    total_pixels = array.size//m
+    total_pixels = array.size//3 # 3 represents the 3 bands, RGB
 
     hidden_bits = ""
     for p in range(total_pixels):
@@ -165,7 +162,7 @@ while (loop):
         msg = input_msg()
         dest = input("Enter the destination image path: ").strip()
         print()
-        n = int(input("Enter the number of least significant bits you wish to modify: ").strip())
+        n = int(input("Enter the number of least-significant bits you wish to modify: ").strip())
         print("\nEncoding...\n")
         encode(img, msg, dest, n)
         
