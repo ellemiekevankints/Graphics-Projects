@@ -67,12 +67,13 @@ def encode(src, message, dest, n):
     img = Image.open(src, 'r')
     img = img.convert('RGB') # convert image to RBG
     width, height = img.size
-    array = np.array(list(img.getdata())) # 2D aray which holds the pixel data
+    array = np.array(list(img.getdata())) # 2D aray which holds the pixel data, with each band in its own cell
      
     total_pixels = array.size//3 # 3 represents the 3 bands, RGB
     
     message += "$t3g0" # delimiter so program knows when to stop
     b_message = ''.join([format(ord(i), "08b") for i in message]) # binary form of the message 
+
     req_pixels = len(b_message)
     
     # check to ensure the total pixels available is sufficient for the secret message 
@@ -83,12 +84,19 @@ def encode(src, message, dest, n):
         index = 0
         for p in range(total_pixels):
             # replace 0 to n (exclusive) least significant bits in img with secret message
-            for q in range(0, n): 
+            for q in range(0, 3): 
                 if index < req_pixels:
-                    array[p][q] = int(bin(array[p][q])[2:9] + b_message[index], 2)
-                    index += 1
+                    
+                    b_new = b_message[index:n+index] # the new bits to insert
+                    n_len = len(b_new) # the number of bits to insert 
+                    
+                    b_val = bin(array[p][q])[:9-n_len] # remove the bits that will be replaced
+                    b_val += b_new # add the new bits to the binary pixel value 
+                     
+                    array[p][q] = int(b_val, 2) # put back in the img array 
+                    index += n
 
-        array = array.reshape(height, width, n) # updated pixels array, with encoded secret message
+        array = array.reshape(height, width, 3) # updated pixels array, with encoded secret message
         enc_img = Image.fromarray(array.astype('uint8'), img.mode)
         enc_img.save(dest)
         print("Image Encoded Successfully") 
@@ -106,16 +114,16 @@ def decode(src, n):
     array = np.array(list(img.getdata())) # 2D aray which holds the pixel data
 
     total_pixels = array.size//3 # 3 represents the 3 bands, RGB
-
+    
     hidden_bits = ""
     for p in range(total_pixels):
         # extract the n least significant bits from the image 
-        for q in range(0, n):
-            hidden_bits += (bin(array[p][q])[2:][-1]) 
-
+        for q in range(0, 3):
+            hidden_bits += bin(array[p][q])[9-n:]
+     
     # store 8 bits together
     hidden_bits = [hidden_bits[i:i+8] for i in range(0, len(hidden_bits), 8)] 
-
+    
     message = ""
     for i in range(len(hidden_bits)):
         if message[-5:] == "$t3g0":
@@ -163,6 +171,12 @@ while (loop):
         dest = input("Enter the destination image path: ").strip()
         print()
         n = int(input("Enter the number of least-significant bits you wish to modify: ").strip())
+        
+        # the number of LSB to be modified must be greater than 0 and less than 8
+        if n < 1 or n > 7:
+            print("ERROR: The chosen value for n is invalid.")
+            continue
+        
         print("\nEncoding...\n")
         encode(img, msg, dest, n)
         
